@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Правда или ложь? — Тайны «Капитанской дочки»</title>
+<style>
+:root{--bg:#101124;--panel:#191a35;--panel2:#242344;--text:#f8f6ff;--muted:#b9b7d7;--pink:#ff4f9a;--cyan:#4be4e8;--yellow:#ffd166;--green:#73f0b0;--red:#ff647c}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;padding:24px;color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(ellipse at 12% 5%,#3b226e 0,transparent 33%),radial-gradient(ellipse at 92% 25%,#0d626b 0,transparent 30%),linear-gradient(145deg,#101124,#17152c 55%,#101b2b);background-attachment:fixed}
+button{font:inherit;cursor:pointer}
+.app{max-width:1020px;margin:0 auto;border:1px solid #ffffff24;border-radius:28px;background:linear-gradient(145deg,#1b1c39f5,#15162df5);box-shadow:0 30px 100px #05051080;overflow:hidden;position:relative}
+.app:before{content:"";position:absolute;inset:0 0 auto;height:5px;background:linear-gradient(90deg,var(--pink),#a77aff,var(--cyan),var(--yellow))}
+header{text-align:left;padding:34px clamp(22px,5vw,56px) 28px;background:linear-gradient(115deg,#ff4f9a18,#8c73ff15 52%,#4be4e817);border-bottom:1px solid #ffffff14;position:relative}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;text-transform:uppercase;letter-spacing:2px;font-size:.72rem;font-weight:800;color:var(--cyan)}
+.eyebrow:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--pink);box-shadow:0 0 16px var(--pink)}
+h1{font-size:clamp(2.1rem,5vw,4rem);letter-spacing:-.055em;line-height:1.02;margin:15px 0 10px;font-weight:900;background:linear-gradient(95deg,#fff 5%,#ff91bf 48%,#8df9f3 92%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.subtitle{color:var(--muted);font-size:1.05rem}
+main{padding:clamp(20px,5vw,52px)}
+.screen{display:none}.screen.active{display:block}
+button{transition:transform .18s,filter .18s,background .18s}
+button:hover{transform:translateY(-2px);filter:brightness(1.08)}
+button:focus-visible,.zone:focus-visible,.statement-card:focus-visible{outline:3px solid var(--yellow);outline-offset:4px}
+.primary{border:0;border-radius:14px;padding:15px 24px;color:#15142a;font-weight:850;background:linear-gradient(100deg,var(--pink),#ff8d9f 45%,var(--yellow));box-shadow:0 8px 24px #ff4f9a25}
+.start-content{text-align:center;padding:8px 8px 18px}
+.seal{display:grid;place-items:center;width:106px;height:106px;margin:6px auto 24px;border-radius:30px;transform:rotate(-5deg);font-size:2.6rem;color:#fff;background:linear-gradient(145deg,var(--pink),#9273ff 58%,var(--cyan));box-shadow:0 16px 38px #8e59ff3d}
+h2{font-size:clamp(1.65rem,4vw,2.5rem);letter-spacing:-.035em;margin:12px 0;color:#fff}
+.start-content p{max-width:650px;margin:0 auto 24px;color:var(--muted);line-height:1.75}
+.rules{max-width:630px;margin:0 auto 28px;text-align:left;padding:19px 22px;border:1px solid #ffffff1c;border-radius:18px;background:linear-gradient(130deg,#ffffff08,#ffffff03);color:#d8d6ef;line-height:1.8}
+.rules strong{color:var(--cyan)}
+.topline{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:13px;color:var(--muted);font-size:.92rem;font-weight:700}
+#counter{color:#fff}
+#score{padding:8px 13px;border:1px solid #ffd16645;border-radius:99px;background:#ffd16613;color:var(--yellow)}
+.progress-wrap{height:8px;background:#ffffff13;border-radius:99px;overflow:hidden;margin-bottom:30px}
+.progress{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--pink),#a77aff,var(--cyan));transition:width .3s}
+.prompt-label{text-align:center;text-transform:uppercase;letter-spacing:2.5px;font-size:.72rem;font-weight:850;color:#a9a3d7;margin-bottom:13px}
+.statement-card{position:relative;min-height:205px;display:flex;align-items:center;justify-content:center;text-align:center;padding:32px clamp(18px,5vw,60px);border:1px solid #ffffff24;border-radius:24px;background:radial-gradient(ellipse at 5% 5%,#ff4f9a22,transparent 38%),radial-gradient(ellipse at 100% 100%,#4be4e81a,transparent 40%),linear-gradient(145deg,#252648,#1b1c38);box-shadow:0 18px 50px #05051042;cursor:grab;user-select:none;touch-action:pan-y}
+.statement-card:before{content:"✦";position:absolute;top:17px;left:19px;color:var(--pink);font-size:1.2rem}.statement-card:after{content:"✦";position:absolute;bottom:17px;right:19px;color:var(--cyan);font-size:1.2rem}
+.statement-card.dragging{opacity:.55;transform:rotate(1deg)}
+.statement-text{font-size:clamp(1.2rem,2.8vw,1.75rem);font-weight:750;letter-spacing:-.025em;line-height:1.5;max-width:750px}
+.hint{text-align:center;color:#a9a7c7;font-size:.88rem;margin:16px 0 22px}
+.zones{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.zone{min-height:122px;border:1px solid;border-radius:20px;padding:18px 12px;text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;transition:background .15s,transform .15s,box-shadow .15s}
+.zone strong{font-size:1.2rem;letter-spacing:1px}.zone small{font-size:.84rem;opacity:.82}
+.zone.truth{border-color:#73f0b066;background:linear-gradient(145deg,#73f0b01b,#73f0b008);color:var(--green)}
+.zone.lie{border-color:#ff647c66;background:linear-gradient(145deg,#ff647c1b,#ff647c08);color:var(--red)}
+.zone.over{transform:scale(1.02);box-shadow:0 0 0 3px var(--yellow)}
+.zone-buttons{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px}
+.zone-btn{padding:12px;border-radius:12px;border:1px solid #ffffff24;background:#ffffff08;color:var(--text);font-weight:700}
+.zone-btn.truth{color:var(--green)}.zone-btn.lie{color:var(--red)}
+.zone-btn:disabled{opacity:.4;cursor:default;transform:none}
+.feedback{margin-top:22px;padding:20px 22px;border:1px solid #ffffff20;border-radius:18px;background:#ffffff08;line-height:1.7;display:none;color:#dedcf2}
+.feedback.show{display:block}.feedback h3{margin:0 0 8px;color:#fff;font-size:1.2rem}
+.feedback.correct{border-left:4px solid var(--green)}.feedback.incorrect{border-left:4px solid var(--red)}
+.next-row{display:flex;justify-content:flex-end;margin-top:18px}
+.result{text-align:center;padding:8px}.result .seal{transform:rotate(5deg)}
+.score{font-size:clamp(3.5rem,10vw,6rem);font-weight:950;letter-spacing:-.06em;background:linear-gradient(100deg,var(--pink),var(--yellow),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent;margin:16px 0}
+.result p{line-height:1.75;max-width:650px;margin:0 auto 20px;color:var(--muted)}
+.result-note{padding:18px 22px;border:1px solid #ffffff1c;border-radius:16px;background:#ffffff08;color:#d8d6ef;max-width:650px;margin:20px auto 27px;line-height:1.7}
+footer{text-align:center;padding:16px;color:#aaa7c9;font-size:.8rem;max-width:1020px;margin:14px auto 0}
+@media(max-width:600px){body{padding:10px}.app{border-radius:21px}header{padding:31px 22px 24px}.zones,.zone-buttons{gap:10px}.zone{min-height:110px;padding:12px 6px;border-radius:16px}.zone strong{font-size:1.05rem}.zone small{font-size:.75rem}.statement-card{min-height:220px;border-radius:18px}.rules{padding:16px}.primary{width:100%}.next-row .primary{width:auto}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <div class="eyebrow">Литературное расследование · XVIII век</div>
+  <h1>Правда или ложь?</h1>
+  <div class="subtitle">Тайны «Капитанской дочки»</div>
+</header>
+<main>
+<section id="start" class="screen active">
+  <div class="start-content">
+    <div class="seal" aria-hidden="true">❧</div>
+    <h2>Проверь старинную рукопись</h2>
+    <p>Перед вами двенадцать утверждений о героях и событиях повести А. С. Пушкина. Некоторые записи верны, другие содержат ошибку. Ваша задача — раскрыть каждую тайну.</p>
+    <div class="rules"><strong>Как играть</strong><br>1. Прочитайте утверждение на карточке.<br>2. Перетащите её в зону «Правда» или «Ложь». На телефоне можно просто нажать нужную кнопку.<br>3. Изучите объяснение и переходите к следующей записи. За каждый правильный ответ начисляется 1 балл.</div>
+    <button id="startBtn" class="primary">Начать расследование →</button>
+  </div>
+</section>
+<section id="game" class="screen">
+  <div class="topline"><span id="counter">Утверждение 1 из 12</span><span id="score">Баллы: 0</span></div>
+  <div class="progress-wrap" aria-label="Прогресс"><div id="progress" class="progress"></div></div>
+  <div class="prompt-label">Запись из рукописи</div>
+  <div id="card" class="statement-card" draggable="true" tabindex="0" aria-label="Карточка с утверждением">
+    <div id="statement" class="statement-text"></div>
+  </div>
+  <div class="hint">Перетащите карточку в одну из зон — или выберите ответ кнопкой ниже.</div>
+  <div class="zones">
+    <div class="zone truth" id="truthZone" data-answer="true" tabindex="0" role="button" aria-label="Выбрать Правда">
+      <strong>✓ ПРАВДА</strong><small>Факт подтверждается повестью</small>
+    </div>
+    <div class="zone lie" id="lieZone" data-answer="false" tabindex="0" role="button" aria-label="Выбрать Ложь">
+      <strong>✕ ЛОЖЬ</strong><small>В утверждении есть ошибка</small>
+    </div>
+  </div>
+  <div class="zone-buttons">
+    <button class="zone-btn truth" id="truthBtn">Это правда</button>
+    <button class="zone-btn lie" id="lieBtn">Это ложь</button>
+  </div>
+  <div id="feedback" class="feedback" aria-live="polite">
+    <h3 id="feedbackTitle"></h3><div id="feedbackText"></div>
+    <div class="next-row"><button id="nextBtn" class="primary">Следующая запись →</button></div>
+  </div>
+</section>
+<section id="result" class="screen">
+  <div class="result">
+    <div class="seal" aria-hidden="true">✧</div>
+    <h2>Расследование завершено</h2>
+    <div class="score" id="finalScore">0 / 12</div>
+    <h3 id="resultTitle"></h3>
+    <p id="resultText"></p>
+    <div class="result-note" id="resultNote"></div>
+    <button id="restartBtn" class="primary">Начать заново ↻</button>
+  </div>
+</section>
+</main>
+</div>
+<footer>По повести А. С. Пушкина «Капитанская дочка» · Учитесь отличать факт от ошибки</footer>
+<script>
+const originalStatements = [
+ {text:"Савельич сопровождает Петра Гринёва в дороге и заботится о нём.",truth:true,why:"Верно. Савельич — преданный слуга и воспитатель Петра; он едет с ним к месту службы и неоднократно заботится о нём."},
+ {text:"Маша Миронова — дочь коменданта Белогорской крепости.",truth:true,why:"Верно. Марья Ивановна — дочь капитана Ивана Кузьмича Миронова и Василисы Егоровны."},
+ {text:"Гринёв впервые встречает Пугачёва во время дуэли.",truth:false,why:"Неверно. Первая встреча происходит во время бурана: незнакомец помогает Гринёву и Савельичу найти дорогу. Позже Гринёв узнаёт в нём Пугачёва."},
+ {text:"Швабрин и Гринёв становятся соперниками потому, что оба добиваются одного и того же офицерского звания.",truth:false,why:"Неверно. Их конфликт связан прежде всего с Машей Мироновой: Швабрин прежде сватался к ней, а после отказа отзывался о ней дурно. Ссора приводит к дуэли."},
+ {text:"Иван Кузьмич Миронов соглашается присягнуть Пугачёву.",truth:false,why:"Неверно. Капитан Миронов отказывается признать Пугачёва государем и остаётся верен присяге; за это его казнят."},
+ {text:"Гринёв дарит незнакомцу заячий тулуп.",truth:true,why:"Верно. Во время бурана Гринёв благодарит проводника за помощь и велит Савельичу отдать ему заячий тулуп."},
+ {text:"Савельич возглавляет восстание против императрицы.",truth:false,why:"Неверно. Савельич — слуга Гринёва, а не руководитель восстания. Восстание возглавляет Емельян Пугачёв."},
+ {text:"В финале повести Маша Миронова встречается с Екатериной II.",truth:true,why:"Верно. Маша отправляется в Петербург просить за Гринёва и встречает императрицу в Царскосельском саду, не сразу узнав её."},
+ {text:"Иван Зурин — отец Маши Мироновой.",truth:false,why:"Неверно. Отец Маши — капитан Иван Кузьмич Миронов. Зурин — офицер, с которым Гринёв знакомится во время службы."},
+ {text:"Швабрин помогает Гринёву освободить Машу исключительно из дружеских побуждений.",truth:false,why:"Неверно. Швабрин не помогает Гринёву освободить Машу: он удерживает её в плену и принуждает к браку. Гринёв обращается за помощью к Пугачёву."},
+ {text:"Гринёв отказывается присягать Пугачёву.",truth:true,why:"Верно. Гринёв прямо говорит Пугачёву, что уже присягал императрице и не может изменить присяге."},
+ {text:"Маша обращается к императрице, чтобы помочь Гринёву.",truth:true,why:"Верно. Узнав об аресте Гринёва, Маша едет в Петербург, чтобы рассказать правду и просить о его помиловании."}
+];
+let deck=[],index=0,points=0,answered=false;
+const $=id=>document.getElementById(id);
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$(id).classList.add('active');}
+function shuffle(items){const a=[...items];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function startGame(){deck=shuffle(originalStatements);index=0;points=0;answered=false;showScreen('game');renderCard();}
+function renderCard(){answered=false;const item=deck[index];$('counter').textContent=`Утверждение ${index+1} из ${deck.length}`;$('score').textContent=`Баллы: ${points}`;$('progress').style.width=`${index/deck.length*100}%`;$('statement').textContent=item.text;$('feedback').className='feedback';$('card').draggable=true;$('truthBtn').disabled=false;$('lieBtn').disabled=false;$('nextBtn').textContent=index===deck.length-1?'Узнать результат →':'Следующая запись →';$('card').focus({preventScroll:true});}
+function answer(choice){if(answered)return;answered=true;const item=deck[index],correct=choice===item.truth;if(correct)points++;$('score').textContent=`Баллы: ${points}`;$('progress').style.width=`${(index+1)/deck.length*100}%`;$('feedback').className='feedback show '+(correct?'correct':'incorrect');$('feedbackTitle').textContent=correct?'Верно! Запись подтверждена.':'Есть ошибка в расследовании.';$('feedbackText').textContent=(correct?'Правильный ответ. ':'Правильный ответ: '+(item.truth?'ПРАВДА. ':'ЛОЖЬ. '))+item.why;$('card').draggable=false;$('truthBtn').disabled=true;$('lieBtn').disabled=true;$('truthZone').classList.remove('over');$('lieZone').classList.remove('over');$('nextBtn').focus();}
+function next(){if(!answered)return;if(index<deck.length-1){index++;renderCard();}else showResult();}
+function showResult(){showScreen('result');$('finalScore').textContent=`${points} / ${deck.length}`;let title,txt,note;if(points>=10){title='Вы отлично знаете повесть!';txt='Вы уверенно отличаете факты от ошибок и хорошо помните важные эпизоды.';note='Попробуйте объяснить, как верность, честь и милосердие проявляются в поступках Гринёва и Маши.';}else if(points>=7){title='Хороший результат';txt='Основные события вам знакомы. Несколько деталей стоит освежить в памяти.';note='Повторите эпизоды с первой встречей Гринёва и Пугачёва, обороной крепости и поездкой Маши в Петербург.';}else{title='Расследование продолжается';txt='Ошибки — возможность внимательнее перечитать повесть и заметить важные детали.';note='Начните с отношений Гринёва и Савельича, судьбы семьи Мироновых и финальной встречи Маши с императрицей.';}}
+$('startBtn').addEventListener('click',startGame);$('restartBtn').addEventListener('click',startGame);$('nextBtn').addEventListener('click',next);$('truthBtn').addEventListener('click',()=>answer(true));$('lieBtn').addEventListener('click',()=>answer(false));
+$('card').addEventListener('dragstart',e=>{if(answered){e.preventDefault();return;}e.dataTransfer.setData('text/plain','statement');e.dataTransfer.effectAllowed='move';$('card').classList.add('dragging');});
+$('card').addEventListener('dragend',()=>$('card').classList.remove('dragging'));
+[['truthZone',true],['lieZone',false]].forEach(([id,val])=>{const zone=$(id);zone.addEventListener('dragover',e=>{if(!answered){e.preventDefault();zone.classList.add('over');}});zone.addEventListener('dragleave',()=>zone.classList.remove('over'));zone.addEventListener('drop',e=>{e.preventDefault();zone.classList.remove('over');answer(val);});zone.addEventListener('click',()=>answer(val));zone.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();answer(val);}});});
+document.addEventListener('keydown',e=>{if(!$('game').classList.contains('active')||answered)return;if(e.key==='ArrowLeft')answer(true);if(e.key==='ArrowRight')answer(false);});
+</script>
+</body>
+</html>
